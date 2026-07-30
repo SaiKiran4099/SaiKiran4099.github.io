@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sai Kiran Goud Lingala — CFD &amp; Thermal Engineer</title>
+<meta name="description" content="CFD and thermal-fluids engineer. Published validation studies in Simcenter STAR-CCM+, ANSYS Fluent and OpenFOAM — turbulence benchmarking, rotating machinery, conjugate heat transfer.">
+<meta name="theme-color" content="#0B1020">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sai Kiran Goud Lingala — CFD &amp; Thermal Engineer">
+<meta property="og:description" content="I build CFD models against published benchmarks and report the disagreement. STAR-CCM+, ANSYS Fluent, OpenFOAM.">
+<meta property="og:url" content="https://saikiran4099.github.io">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sai Kiran Goud Lingala — CFD &amp; Thermal Engineer">
+<meta name="twitter:description" content="I build CFD models against published benchmarks and report the disagreement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.className+=" js";</script>
+<style>
+:root{
+  --ink:#0B1020; --surface:#141C31; --raise:#1B2540; --line:#28345A;
+  --text:#E6EBF7; --soft:#C4CDE4; --muted:#8493B4;
+  --cool:#4DA3D9; --hot:#F2A93B; --good:#4FA07A;
+  --display:'Space Grotesk',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --wrap:1080px; --navh:58px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);
+  font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(880px 480px at 12% -5%, rgba(77,163,217,.14), transparent 60%),
+             radial-gradient(700px 430px at 88% 5%, rgba(242,169,59,.07), transparent 62%)}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 26px;position:relative;z-index:1}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--hot);outline-offset:3px;border-radius:2px}
+.sec{scroll-margin-top:calc(var(--navh) + 14px)}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--hot);color:#0B1020;
+  padding:12px 18px;font-family:var(--mono);font-size:13px;font-weight:600;text-decoration:none}
+.skip:focus{left:16px;top:16px}
+#prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:70;
+  background:linear-gradient(90deg,var(--cool),var(--hot));transition:width .1s linear}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:rgba(11,16,32,.85);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:var(--navh)}
+.brand{display:flex;align-items:baseline;gap:9px;text-decoration:none;white-space:nowrap}
+.brand .d{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--hot);line-height:1}
+.brand .n{font-family:var(--mono);font-size:12px;letter-spacing:.22em;font-weight:600}
+.brand .t{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-links a{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .18s}
+.nav-links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.06em;padding:8px 14px;border:1px solid var(--line);border-radius:2px;
+  text-decoration:none;background:rgba(20,28,49,.6);
+  transition:border-color .18s,color .18s,transform .18s,box-shadow .18s}
+.btn:hover{border-color:var(--hot);color:var(--hot);transform:translateY(-1px);
+  box-shadow:0 8px 20px -10px rgba(242,169,59,.55)}
+.btn.solid{background:var(--hot);color:#0B1020;border-color:var(--hot);font-weight:600}
+.btn.solid:hover{color:#0B1020;filter:brightness(1.07)}
+@media (max-width:880px){ .nav-links{display:none} }
+
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.20em;text-transform:uppercase;
+  color:var(--cool);margin:0 0 12px}
+
+/* masthead */
+.mast{padding:40px 0 0}
+.mast h1{font-family:var(--display);font-weight:700;letter-spacing:-.028em;
+  font-size:clamp(2.3rem,6.2vw,3.9rem);line-height:1.03;margin:0}
+.mast h1 span{display:block;overflow:hidden}
+.mast h1 span i{display:block;font-style:normal}
+.js .mast h1 span i{transform:translateY(105%);animation:lift .9s cubic-bezier(.16,.9,.3,1) forwards}
+.js .mast h1 span:nth-child(2) i{animation-delay:.08s}
+@keyframes lift{to{transform:translateY(0)}}
+.thesis{font-size:clamp(1rem,2.2vw,1.2rem);max-width:58ch;margin:18px 0 0}
+.thesis b{color:var(--hot);font-weight:600}
+.sub{color:var(--muted);max-width:60ch;margin:11px 0 0;font-size:.92rem}
+.cta{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0 0}
+
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:24px 0 0;
+  background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.metric{background:var(--surface);padding:15px 15px;transition:background .25s}
+.metric:hover{background:var(--raise)}
+.metric strong{display:block;font-family:var(--display);font-weight:700;letter-spacing:-.02em;
+  font-size:clamp(1.35rem,3vw,1.75rem);line-height:1;color:var(--hot)}
+.metric span{display:block;margin-top:7px;font-family:var(--mono);font-size:10.2px;line-height:1.45;
+  color:var(--muted);letter-spacing:.02em}
+@media (max-width:760px){ .metrics{grid-template-columns:1fr 1fr} }
+
+/* sim panels (shared) */
+.sim{border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.sim-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:11px 16px;border-bottom:1px solid var(--line);background:var(--raise)}
+.sim-head h3,.sim-head h2{font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;margin:0;font-weight:600}
+.sim-head .live{font-family:var(--mono);font-size:10.2px;color:var(--muted);display:flex;
+  align-items:center;gap:6px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--good);
+  box-shadow:0 0 0 0 rgba(79,160,122,.65);animation:pulse 2.4s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(79,160,122,0)}100%{box-shadow:0 0 0 0 rgba(79,160,122,0)}}
+.hold{position:relative;width:100%;background:#080D1A;min-height:200px}
+.hold canvas{display:block;width:100%;height:100%}
+.tag{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.05em;
+  color:var(--muted);pointer-events:none;text-transform:uppercase}
+.ctl{display:flex;flex-wrap:wrap;border-top:1px solid var(--line);background:var(--raise)}
+.ctl button{flex:1 1 130px;background:none;border:0;border-right:1px solid var(--line);
+  padding:11px 14px;text-align:left;cursor:pointer;color:var(--muted);font-family:var(--mono);
+  font-size:11.3px;letter-spacing:.03em;transition:background .2s,color .2s;position:relative}
+.ctl button:last-child{border-right:0}
+.ctl button:hover{background:rgba(77,163,217,.07);color:var(--text)}
+.ctl button strong{display:block;font-weight:600;font-size:11.8px;margin-bottom:2px;color:inherit}
+.ctl button em{font-style:normal;font-size:10.2px;opacity:.8}
+.ctl button[aria-pressed="true"]{background:rgba(242,169,59,.09);color:var(--text)}
+.ctl button[aria-pressed="true"]::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--hot)}
+.ctl button[aria-pressed="true"] em{color:var(--hot);opacity:1}
+.sim-note{padding:11px 16px;border-top:1px solid var(--line);font-size:12.3px;color:var(--muted);line-height:1.5}
+.sim-note b{color:var(--text);font-weight:500}
+
+/* hero sim sizing */
+#bfsHold{aspect-ratio:1000/250}
+.tag-recirc{left:26%;top:70%}
+.tag-shear{left:34%;top:26%}
+.tag-reatt{color:var(--hot);top:84%;transform:translateX(-50%);transition:left .8s cubic-bezier(.16,.9,.3,1)}
+
+/* ledger */
+.ledger{margin:18px 0 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.ledger-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
+  padding:12px 16px;border-bottom:1px solid var(--line);background:var(--raise)}
+.ledger-head h2{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin:0;font-weight:600}
+.ledger-head p{margin:0;font-size:11px;color:var(--muted);font-family:var(--mono)}
+.row{display:grid;grid-template-columns:minmax(175px,1.05fr) minmax(145px,.9fr) minmax(200px,1.5fr);
+  gap:16px;align-items:center;padding:11px 16px;border-bottom:1px solid rgba(40,52,90,.5);transition:background .2s}
+.row:last-child{border-bottom:0}
+.row:hover{background:rgba(27,37,64,.55)}
+.case{font-family:var(--display);font-weight:500;font-size:.92rem;line-height:1.25}
+.case small{display:block;font-family:var(--mono);font-weight:400;font-size:10.3px;color:var(--muted);margin-top:2px}
+.measure{font-family:var(--mono);font-size:11.2px;color:var(--muted);line-height:1.45}
+.measure b{color:var(--text);font-weight:500}
+.bar{position:relative;height:28px}
+.axis{position:absolute;left:18%;top:0;bottom:0;width:1px;background:var(--line)}
+.fill{position:absolute;top:8px;height:7px;border-radius:1px;transform:scaleX(0);
+  transition:transform .95s cubic-bezier(.16,.9,.3,1)}
+.fill.neg{transform-origin:right center;background:var(--cool)}
+.fill.pos{transform-origin:left center;background:var(--hot)}
+.fill.tight{background:var(--good);transform-origin:left center}
+.val{position:absolute;top:5px;font-family:var(--mono);font-size:11.3px;font-weight:500;opacity:0;
+  transition:opacity .5s ease;white-space:nowrap}
+.val.neg{color:var(--cool)} .val.pos{color:var(--hot)} .val.tight{color:var(--good)}
+.ledger.run .fill{transform:scaleX(1)}
+.ledger.run .val{opacity:1}
+.ledger-foot{padding:12px 16px;border-top:1px solid var(--line);background:var(--raise);
+  font-size:12.3px;color:var(--muted);line-height:1.5}
+.ledger-foot b{color:var(--text);font-weight:500}
+
+/* sections */
+.sec{padding:52px 0 0}
+.sec-head{border-top:1px solid var(--line);padding-top:18px;margin-bottom:20px}
+.sec-head h2{font-family:var(--display);font-weight:700;letter-spacing:-.02em;
+  font-size:clamp(1.35rem,3vw,1.8rem);margin:0}
+.sec-head p{margin:7px 0 0;color:var(--muted);max-width:64ch;font-size:.9rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+@media (max-width:900px){.grid3{grid-template-columns:1fr}}
+
+.card{border:1px solid var(--line);background:var(--surface);border-radius:3px;
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+  transition:border-color .25s,transform .25s,box-shadow .25s}
+.card-b{padding:20px;display:flex;flex-direction:column;gap:11px;flex:1}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(77,163,217,.16),transparent 64%)}
+.card:hover{border-color:#3C5087;box-shadow:0 14px 30px -22px rgba(0,0,0,.85)}
+.card.glow{border-color:#3C5087;box-shadow:0 14px 30px -22px rgba(0,0,0,.85)}
+.card:hover::after,.card.glow::after{opacity:1}
+.card h3{font-family:var(--display);font-size:1.05rem;font-weight:600;margin:0;line-height:1.3}
+.tool{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--cool)}
+.card p{margin:0;font-size:.89rem;color:var(--soft)}
+.card ul{margin:0;padding-left:16px;font-size:.87rem;color:var(--soft)}
+.card li{margin-bottom:5px} .card li:last-child{margin-bottom:0}
+.repo{margin-top:auto;font-family:var(--mono);font-size:11.8px;color:var(--hot);text-decoration:none;
+  border-bottom:1px solid rgba(242,169,59,.3);align-self:flex-start;padding-bottom:1px;transition:border-color .2s}
+.repo:hover{border-bottom-color:var(--hot)}
+.finding{font-family:var(--mono);font-size:11px;color:var(--muted);border-left:2px solid var(--line);
+  padding:2px 0 2px 11px;line-height:1.5}
+.card .sim{border:0;border-bottom:1px solid var(--line);border-radius:0}
+.card.wide{grid-column:1/-1;display:grid;grid-template-columns:400px 1fr}
+.card.wide .sim{border-bottom:0;border-right:1px solid var(--line)}
+.card.wide .hold{aspect-ratio:1/1}
+.card.wide .card-b{padding:20px 22px}
+.card .hold{aspect-ratio:1/1;min-height:0}
+.card .ctl{border-top:1px solid var(--line)}
+.card .ctl button{flex:1 1 50%}
+
+/* experience */
+.job{display:grid;grid-template-columns:195px 1fr;gap:22px;padding:18px 0;border-bottom:1px solid rgba(40,52,90,.55)}
+.job:last-of-type{border-bottom:0;padding-bottom:0}
+.job-meta .role{font-family:var(--display);font-weight:600;font-size:1rem;line-height:1.25}
+.job-meta .org{font-family:var(--mono);font-size:11.8px;color:var(--cool);margin-top:4px}
+.job-meta .when{font-family:var(--mono);font-size:10.8px;color:var(--muted);margin-top:2px}
+.job ul{margin:0;padding-left:16px;font-size:.9rem;color:var(--soft)}
+.job li{margin-bottom:6px} .job li:last-child{margin-bottom:0}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.capbox{border:1px solid var(--line);background:var(--surface);border-radius:3px;padding:14px 16px}
+.capbox dt{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--cool)}
+.capbox dd{margin:6px 0 0;font-size:.86rem;color:var(--soft);line-height:1.5}
+
+/* credentials */
+.creds{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cred{border:1px solid var(--line);background:var(--surface);border-radius:3px;padding:16px;
+  transition:border-color .25s,transform .25s}
+.cred:hover{border-color:#3C5087;transform:translateY(-2px)}
+.cred .tool{display:block;margin-bottom:8px}
+.cred h3{font-family:var(--display);font-size:.94rem;font-weight:600;margin:0 0 5px;line-height:1.3}
+.cred p{margin:0;font-size:.82rem;color:var(--soft);line-height:1.45}
+.cred .when{font-family:var(--mono);font-size:10.3px;color:var(--muted);margin-top:7px}
+@media (max-width:900px){ .creds{grid-template-columns:1fr 1fr} }
+
+/* auth + contact */
+.auth{border:1px solid var(--line);border-left:3px solid var(--cool);background:var(--surface);
+  border-radius:3px;padding:18px 20px;margin-top:16px}
+.auth h3{font-family:var(--display);font-size:.98rem;font-weight:600;margin:0 0 7px}
+.auth p{margin:0;font-size:.88rem;color:var(--soft);max-width:80ch;line-height:1.55}
+.auth p+p{margin-top:7px}
+.contact{border:1px solid var(--line);background:var(--surface);border-radius:3px;padding:26px 24px;text-align:center}
+.contact h3{font-family:var(--display);font-size:clamp(1.2rem,2.6vw,1.55rem);font-weight:700;margin:0 0 8px;letter-spacing:-.02em}
+.contact p{margin:0 auto;max-width:56ch;color:var(--soft);font-size:.9rem}
+.contact .cta{justify-content:center;margin-top:18px}
+
+footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
+.foot-grid{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:flex-end}
+.foot-grid p{margin:0;font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.6}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap}
+.foot-links a{font-family:var(--mono);font-size:11.5px;text-decoration:none;
+  border-bottom:1px solid var(--line);transition:color .2s,border-color .2s}
+.foot-links a:hover{color:var(--hot);border-bottom-color:var(--hot)}
+
+.js .rise{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.js .rise.in{opacity:1;transform:none}
+.js .stag>*{opacity:0;transform:translateY(13px);transition:opacity .5s ease,transform .5s ease}
+.js .stag.in>*{opacity:1;transform:none}
+.js .stag.in>*:nth-child(2){transition-delay:.08s}
+.js .stag.in>*:nth-child(3){transition-delay:.16s}
+.js .stag.in>*:nth-child(4){transition-delay:.24s}
+
+@media (max-width:820px){
+  .grid2,.caps{grid-template-columns:1fr}
+  .card.wide{grid-template-columns:1fr}
+  .card.wide .sim{border-right:0;border-bottom:1px solid var(--line)}
+  .job{grid-template-columns:1fr;gap:11px}
+  .row{grid-template-columns:1fr;gap:8px;padding:14px 16px}
+  .wrap{padding:0 18px}
+  .mast{padding:30px 0 0}
+  #bfsHold{aspect-ratio:840/380}
+  .ctl button{flex:1 1 100%;border-right:0;border-bottom:1px solid var(--line)}
+  .ctl button:last-child{border-bottom:0}
+  .tag-shear,.tag-recirc{display:none}
+  .brand .t{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .js .rise,.js .stag>*{opacity:1;transform:none}
+  .js .mast h1 span i{transform:none}
+  .fill{transform:scaleX(1)} .val{opacity:1}
+}
+@media print{
+  body{background:#fff;color:#000} body::before,#prog,.nav,.sim{display:none}
+  .card,.cred,.auth,.ledger,.ledger-head,.ledger-foot,.metric,.contact,.capbox{background:#fff;border-color:#bbb}
+  .js .rise,.js .stag>*{opacity:1;transform:none} a{color:#000}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="prog"></div>
+
+<div class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top"><span class="d">Δ</span><span class="n">SKGL</span><span class="t">validation ledger</span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#work">Work</a><a href="#ledger">Ledger</a><a href="#experience">Experience</a><a href="#credentials">Credentials</a>
+    </nav>
+    <a class="btn solid" href="Resume_SaiKiran_Master_v3.pdf" download>Résumé PDF ↓</a>
+  </div>
+</div>
+
+<header class="wrap mast" id="top">
+  <p class="eyebrow">CFD &amp; Thermal-Fluid Engineer · Dayton, Ohio</p>
+  <h1><span><i>Sai Kiran</i></span><span><i>Goud Lingala</i></span></h1>
+  <p class="thesis">I build CFD models against published benchmarks and <b>report the disagreement</b> — including the cases I cannot yet explain.</p>
+  <p class="sub">M.S. Mechanical Engineering, University of Dayton. Simcenter STAR-CCM+, ANSYS Fluent, OpenFOAM. Turbulence modelling, conjugate heat transfer, rotating machinery and mesh-convergence work — published openly, failure modes included.</p>
+
+  <div class="cta">
+    <a class="btn" href="mailto:saikiran27.gl@gmail.com">saikiran27.gl@gmail.com</a>
+    <a class="btn" href="tel:+19375164650">(937) 516-4650</a>
+    <a class="btn" href="https://linkedin.com/in/saikiranlingala27" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="btn" href="https://github.com/SaiKiran4099" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><strong data-num="0.8" data-suffix="%">0.8%</strong><span>max deviation after GCI / Richardson grid study</span></div>
+    <div class="metric"><strong data-num="11" data-prefix="+" data-suffix="%">+11%</strong><span>lift-to-drag gain from a validated geometry change</span></div>
+    <div class="metric"><strong data-num="35" data-suffix="%">35%</strong><span>faster new-case turnaround via Fluent automation</span></div>
+    <div class="metric"><strong data-num="0.74" data-suffix="%">0.74%</strong><span>MRF vs. sliding-mesh agreement, corrected Rushton tank</span></div>
+  </div>
+
+  <div class="sim" id="bfsSim" style="margin-top:18px">
+    <div class="sim-head">
+      <h2>Backward-facing step · Re<sub>h</sub> = 5100</h2>
+      <div class="live"><span class="dot"></span> switch the closure — watch reattachment move</div>
+    </div>
+    <div class="hold" id="bfsHold">
+      <canvas id="bfs" aria-label="Animated flow over a backward-facing step"></canvas>
+      <span class="tag tag-shear">shear layer</span>
+      <span class="tag tag-recirc">recirculation</span>
+      <span class="tag tag-reatt" id="tagReatt">reattachment</span>
+    </div>
+    <div class="ctl" role="group" aria-label="Turbulence closure">
+      <button type="button" data-bfs="exp" aria-pressed="true"><strong>Experiment / DNS</strong><em>Jovic &amp; Driver — reference</em></button>
+      <button type="button" data-bfs="ke" aria-pressed="false"><strong>Realizable k-ε</strong><em>Two-Layer · −17 to −20%</em></button>
+      <button type="button" data-bfs="sst" aria-pressed="false"><strong>SST k-ω</strong><em>identical mesh · +11 to +19%</em></button>
+    </div>
+    <p class="sim-note"><b>Same mesh, same case, two answers.</b> <span id="bfsMsg">The reference reattachment length from the published experimental-DNS benchmark.</span></p>
+  </div>
+
+  <div class="ledger" id="ledger">
+    <div class="ledger-head"><h2>Validation Ledger</h2><p>computed vs. published / analytical reference</p></div>
+    <div>
+      <div class="row"><div class="case">Backward-facing step<small>Realizable k-ε Two-Layer</small></div>
+        <div class="measure">Reattachment length<br><b>Re<sub>h</sub> = 5100</b> · Jovic &amp; Driver</div>
+        <div class="bar"><div class="axis"></div><div class="fill neg" style="right:82%;width:12.3%"></div>
+          <div class="val neg" style="right:calc(82% + 12.3% + 8px)">−17 to −20%</div></div></div>
+      <div class="row"><div class="case">Backward-facing step<small>SST k-ω</small></div>
+        <div class="measure">Reattachment length<br><b>identical mesh</b> · same benchmark</div>
+        <div class="bar"><div class="axis"></div><div class="fill pos" style="left:18%;width:10.4%"></div>
+          <div class="val pos" style="left:calc(18% + 10.4% + 8px)">+11 to +19%</div></div></div>
+      <div class="row"><div class="case">Rushton stirred tank<small>Steady MRF · corrected geometry</small></div>
+        <div class="measure">Power Number<br><b>Po 4.85</b> vs ≈5.0 published</div>
+        <div class="bar"><div class="axis"></div><div class="fill neg" style="right:82%;width:1.6%;background:var(--good)"></div>
+          <div class="val neg" style="right:calc(82% + 1.6% + 8px);color:var(--good)">−3.0%</div></div></div>
+      <div class="row"><div class="case">Rushton stirred tank<small>Sliding mesh · corrected geometry</small></div>
+        <div class="measure">Power Number<br><b>Po 4.89</b> · within 0.74% of MRF</div>
+        <div class="bar"><div class="axis"></div><div class="fill neg" style="right:82%;width:1.2%;background:var(--good)"></div>
+          <div class="val neg" style="right:calc(82% + 1.2% + 8px);color:var(--good)">−2.3%</div></div></div>
+      <div class="row"><div class="case">Supersonic nozzle<small>Method of Characteristics</small></div>
+        <div class="measure">Mach distribution<br><b>analytical</b> reference solution</div>
+        <div class="bar"><div class="axis"></div><div class="fill tight" style="left:18%;width:1.1%"></div>
+          <div class="val tight" style="left:calc(18% + 1.1% + 8px)">+2.1%</div></div></div>
+    </div>
+    <div class="ledger-foot"><b>Why I show the misses.</b> Every row here agrees with its reference now, but two of them did not start that way. The Rushton case initially over-predicted by 2.1x. Two plausible causes — rotor-stator unsteadiness, turbulence-model bias — were tested and refuted before a dimensional audit found the real one: a 25% oversized impeller sweep. I predicted the corrected torque analytically, then confirmed it experimentally.</div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="sec wrap rise" id="work">
+  <div class="sec-head">
+    <h2>Selected work</h2>
+    <p>Self-directed validation studies and graduate analysis projects. Each public repository carries the methodology, the data, and the reasoning that corrected my wrong theories along the way.</p>
+  </div>
+  <div class="stag">
+
+    <article class="card tilt wide">
+      <div class="sim">
+        <div class="sim-head">
+          <h3>Rushton tank · top view</h3>
+          <div class="live"><span class="dot"></span> MRF freezes the rotor</div>
+        </div>
+        <div class="hold"><canvas id="tank" aria-label="Animated Rushton stirred tank, top view, with torque trace"></canvas></div>
+        <div class="ctl" role="group" aria-label="Rotating reference frame method">
+          <button type="button" data-tank="mrf" aria-pressed="true"><strong>Steady MRF</strong><em>rotor frozen · Po 4.85</em></button>
+          <button type="button" data-tank="slide" aria-pressed="false"><strong>Sliding mesh</strong><em>1°/step · Po 4.89</em></button>
+        </div>
+      </div>
+      <div class="card-b">
+        <span class="tool">Simcenter STAR-CCM+</span>
+        <h3>RotorLab — Rushton turbine stirred-tank benchmark</h3>
+        <p>I built the same baffled tank two ways — steady Moving Reference Frame and fully transient sliding mesh — and both initially over-predicted the published Power Number by 2.1x. This is the story of finding out why.</p>
+        <ul>
+          <li>774,069-cell two-region trimmed mesh; internal in-place imprinted interface</li>
+          <li>Refuted rotor-stator unsteadiness (sliding mesh didn't close the gap) and turbulence bias (wrong order of magnitude)</li>
+          <li>Dimensional audit found a 25% oversized impeller sweep from a CAD primitive convention trap</li>
+        </ul>
+        <p class="finding">I predicted the corrected torque analytically before remeshing, then confirmed it experimentally. Both formulations now land within 3% of the published benchmark and 0.74% of each other.</p>
+        <a class="repo" href="https://github.com/SaiKiran4099/RotorLab-CFD" target="_blank" rel="noopener">github.com/SaiKiran4099/RotorLab-CFD →</a>
+      </div>
+    </article>
+
+    </div>
+
+  <div class="grid3 stag">
+    <article class="card tilt">
+      <div class="card-b">
+        <span class="tool">Simcenter STAR-CCM+</span>
+        <h3>Backward-facing step — RANS turbulence model benchmarking</h3>
+        <p>Two closures compared on an identical mesh against the Jovic &amp; Driver / Le, Moin &amp; Kim experimental-DNS benchmark at Re<sub>h</sub> = 5100 — the case running at the top of this page.</p>
+        <ul>
+          <li>Mesh verified before solving: 100% face validity, zero negative-volume cells</li>
+          <li>Reattachment length extracted from wall-shear-stress zero-crossings</li>
+          <li>Realizable k-ε ran low, SST k-ω ran high — bracketing the reference</li>
+        </ul>
+        <p class="finding">Published as a full technical report rather than a summary figure.</p>
+        <a class="repo" href="https://github.com/SaiKiran4099/bfs-turbulence-study" target="_blank" rel="noopener">github.com/SaiKiran4099/bfs-turbulence-study →</a>
+      </div>
+    </article>
+
+    <article class="card tilt">
+      <div class="card-b">
+        <span class="tool">ANSYS Fluent · SpaceClaim</span>
+        <h3>Turbine blade conjugate heat transfer</h3>
+        <p>I coupled fluid and solid thermal domains on a high-temperature blade to compare cooling configurations on quantitative grounds.</p>
+        <ul>
+          <li>Film cooling, internal convective channels and thermal barrier coatings modelled together</li>
+          <li>Wall heat flux and temperature distribution extracted per configuration</li>
+          <li>Delivered as a structured trade-off analysis with design recommendations</li>
+        </ul>
+        <p class="finding">The same convective and radiant physics that governs electronics, rack-level and heat-recovery thermal design.</p>
+      </div>
+    </article>
+
+    <article class="card tilt">
+      <div class="card-b">
+        <span class="tool">Python · PyTorch</span>
+        <h3>2D Navier-Stokes physics-informed neural network</h3>
+        <p>A mesh-free solver using automatic differentiation to enforce mass and momentum conservation directly in the loss, rather than discretising a domain.</p>
+        <ul>
+          <li>Steady-state Navier-Stokes, laminar flow past a cylinder at Re ≈ 10</li>
+          <li>Velocity fields validated against analytical benchmarks</li>
+          <li>Residual error quantified across flow regimes</li>
+        </ul>
+        <p class="finding">I built it to find where machine-learning surrogates hold up against conventional CFD — and where they do not.</p>
+        <a class="repo" href="https://github.com/SaiKiran4099/NavierStokes-PINN-2D" target="_blank" rel="noopener">github.com/SaiKiran4099/NavierStokes-PINN-2D →</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="sec wrap rise" id="experience">
+  <div class="sec-head"><h2>Experience</h2></div>
+  <div class="job">
+    <div class="job-meta">
+      <div class="role">CFD &amp; Aerodynamics Engineer</div>
+      <div class="org">Cyient</div>
+      <div class="when">Jan 2022 – Jul 2023 · Hyderabad, India</div>
+    </div>
+    <ul>
+      <li>Ran a 14-case angle-of-attack sweep on a fixed-wing UAV using k-ω SST in ANSYS Fluent, applying GCI/Richardson extrapolation across three mesh densities to hold results within 0.8% deviation.</li>
+      <li>Diagnosed trailing-edge flow separation from velocity-vector post-processing, proposed a leading-edge geometry modification, and validated it through CFD — 7% improvement in C<sub>L</sub> and 11% in L/D.</li>
+      <li>Built structured and hybrid meshes at y⁺ ≤ 1 near-wall resolution, handling geometry cleanup and watertight body preparation in SolidWorks and CATIA.</li>
+      <li>Automated Fluent journal files and boundary-condition setup, cutting new-case turnaround by roughly 35%.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-meta">
+      <div class="role">Graduate Teaching Assistant — Heat Transfer &amp; Controls</div>
+      <div class="org">University of Dayton</div>
+      <div class="when">Aug 2023 – Aug 2024 · Dayton, Ohio</div>
+    </div>
+    <ul>
+      <li>Taught undergraduate and graduate heat transfer and fluid mechanics: conduction, convection, thermal boundary layers and internal flow analysis.</li>
+      <li>Mentored 20+ students through hardware prototyping and iterative design-test cycles, emphasising systematic data analysis and technical reporting.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec wrap rise">
+  <div class="sec-head"><h2>Capabilities</h2></div>
+  <dl class="caps" style="margin:0">
+    <div class="capbox"><dt>Solvers</dt><dd>Simcenter STAR-CCM+ · ANSYS Fluent · OpenFOAM · ParaView · ANSYS Meshing · SpaceClaim</dd></div>
+    <div class="capbox"><dt>Methods</dt><dd>RANS (k-ω SST, Realizable k-ε) · MRF and sliding-mesh rotating machinery · conjugate heat transfer · compressible and incompressible flow · GCI/Richardson extrapolation · y⁺ mesh control · uncertainty quantification</dd></div>
+    <div class="capbox"><dt>Programming</dt><dd>Python (NumPy, Pandas, PyTorch, Matplotlib) · MATLAB · Fluent journal automation · simulation workflow scripting</dd></div>
+    <div class="capbox"><dt>Design</dt><dd>SolidWorks · CATIA V5/V6 · geometry cleanup and defeaturing for CFD import · technical reporting</dd></div>
+  </dl>
+</section>
+
+<section class="sec wrap rise" id="credentials">
+  <div class="sec-head"><h2>Education &amp; credentials</h2></div>
+  <div class="creds stag">
+    <div class="cred"><span class="tool">Graduate</span><h3>M.S., Mechanical Engineering</h3>
+      <p>University of Dayton. Focus: CFD, heat transfer, compressible flows, propulsion.</p>
+      <div class="when">Aug 2023 – Dec 2025</div></div>
+    <div class="cred"><span class="tool">Undergraduate</span><h3>B.Tech., Aeronautical Engineering</h3>
+      <p>MLR Institute of Technology, Hyderabad. Focus: fluid mechanics, thermodynamics, aerodynamics.</p>
+      <div class="when">Aug 2018 – Jul 2022</div></div>
+    <div class="cred"><span class="tool">Patent</span><h3>Morphing wing mechanism</h3>
+      <p>Co-inventor on a filed Indian patent application — rack-and-pinion mechanism varying thickness-to-chord ratio in flight. Validated in ANSYS Workbench.</p>
+      <div class="when">Filed application — not granted</div></div>
+    <div class="cred"><span class="tool">Licensure</span><h3>FE Mechanical</h3>
+      <p>Sitting the Fundamentals of Engineering exam in Ohio, first step toward PE licensure.</p>
+      <div class="when">Scheduled September 2026 · EIT candidate</div></div>
+  </div>
+
+  <div class="auth">
+    <h3>Work authorization — authorized now, no sponsorship required today</h3>
+    <p>I hold F-1 OPT work authorization, extendable to roughly three years in total through the STEM OPT extension. During that period an employer files no petition and pays no sponsorship fee; the requirements are E-Verify enrolment and a signed I-983 training plan. That window spans three H-1B lottery cycles before any petition would be needed.</p>
+    <p>I state it openly because the honest answer to “will you require sponsorship in the future” is yes, and it is easier to weigh that up front than to discover it later.</p>
+  </div>
+</section>
+
+<section class="sec wrap rise">
+  <div class="contact">
+    <h3>Let’s talk about a flow problem</h3>
+    <p>I am looking for CFD, thermal and simulation roles — aerospace, energy, data-centre cooling, rotating machinery or industrial thermal systems. Based in Dayton, Ohio and open to relocation.</p>
+    <div class="cta">
+      <a class="btn solid" href="mailto:saikiran27.gl@gmail.com">Email me</a>
+      <a class="btn" href="Resume_SaiKiran_Master_v3.pdf" download>Résumé PDF ↓</a>
+      <a class="btn" href="https://linkedin.com/in/saikiranlingala27" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn" href="https://github.com/SaiKiran4099" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <div class="foot-grid">
+    <p>Sai Kiran Goud Lingala — Dayton, Ohio<br>Δ Validation Ledger · updated <span id="yr">2026</span></p>
+    <div class="foot-links">
+      <a href="mailto:saikiran27.gl@gmail.com">Email</a>
+      <a href="tel:+19375164650">(937) 516-4650</a>
+      <a href="https://linkedin.com/in/saikiranlingala27" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/SaiKiran4099" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var reduce=false;
+try{ reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+function safe(fn){ try{ fn(); }catch(e){ if(window.console) console.warn('[site]',e); } }
+
+safe(function(){ var y=document.getElementById('yr'); if(y) y.textContent=new Date().getFullYear(); });
+
+safe(function(){
+  var prog=document.getElementById('prog'); if(!prog) return;
+  function up(){ var h=document.documentElement.scrollHeight-window.innerHeight;
+    prog.style.width=(h>0?(window.scrollY/h)*100:0)+'%'; }
+  window.addEventListener('scroll',up,{passive:true}); up();
+});
+
+safe(function(){
+  var r=document.querySelectorAll('.rise,.stag');
+  if(reduce||!('IntersectionObserver' in window)){ r.forEach(function(e){e.classList.add('in');}); return; }
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},
+    {threshold:.06,rootMargin:'0px 0px -30px 0px'});
+  r.forEach(function(e){io.observe(e);});
+});
+
+safe(function(){
+  var m=document.querySelectorAll('.metric strong');
+  if(reduce||!('IntersectionObserver' in window)) return;
+  function run(el){
+    var tg=parseFloat(el.getAttribute('data-num')),
+        pre=el.getAttribute('data-prefix')||'', suf=el.getAttribute('data-suffix')||'',
+        dec=(el.getAttribute('data-num').split('.')[1]||'').length, t0=performance.now();
+    (function tick(now){ var t=Math.min(1,(now-t0)/900), e=1-Math.pow(1-t,3);
+      el.textContent=pre+(tg*e).toFixed(dec)+suf;
+      if(t<1) requestAnimationFrame(tick); else el.textContent=pre+tg.toFixed(dec)+suf; })(t0);
+  }
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){run(e.target);io.unobserve(e.target);}});},{threshold:.6});
+  m.forEach(function(e){io.observe(e);});
+});
+
+safe(function(){
+  var L=document.getElementById('ledger'); if(!L) return;
+  if(reduce||!('IntersectionObserver' in window)){ L.classList.add('run'); return; }
+  L.querySelectorAll('.fill').forEach(function(e,i){e.style.transitionDelay=(i*0.09)+'s';});
+  L.querySelectorAll('.val').forEach(function(e,i){e.style.transitionDelay=(0.3+i*0.09)+'s';});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){L.classList.add('run');io.disconnect();}});},{threshold:.15});
+  io.observe(L);
+});
+
+safe(function(){
+  document.querySelectorAll('.tilt').forEach(function(c){
+    function pos(ev){ var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',((ev.clientX-r.left)/r.width*100)+'%');
+      c.style.setProperty('--my',((ev.clientY-r.top)/r.height*100)+'%'); }
+    c.addEventListener('pointermove',pos);
+    c.addEventListener('pointerenter',function(ev){ pos(ev); c.classList.add('glow'); });
+    c.addEventListener('pointerleave',function(){ c.classList.remove('glow'); });
+  });
+});
+
+/* ---------- shared canvas helper ---------- */
+function makeCanvas(id){
+  var cv=document.getElementById(id); if(!cv) return null;
+  var ctx=null; try{ ctx=cv.getContext&&cv.getContext('2d'); }catch(e){}
+  if(!ctx) return null;
+  var o={cv:cv,ctx:ctx,W:0,H:0,DPR:Math.min(window.devicePixelRatio||1,2),run:false,raf:null};
+  o.resize=function(){ var r=cv.getBoundingClientRect();
+    o.W=Math.max(1,Math.round(r.width)); o.H=Math.max(1,Math.round(r.height));
+    cv.width=o.W*o.DPR; cv.height=o.H*o.DPR; ctx.setTransform(o.DPR,0,0,o.DPR,0,0); };
+  return o;
+}
+function heat(sp,max){ var t=Math.max(0,Math.min(1,sp/max));
+  return 'rgba('+Math.round(77+165*t)+','+Math.round(163+6*t)+','+Math.round(217-158*t)+','; }
+
+/* ================= 1. BACKWARD-FACING STEP ================= */
+safe(function(){
+  var C=makeCanvas('bfs'); if(!C) return;
+  var XS=0.20,YTOP=0.14,YSTEP=0.50,YBOT=0.90;
+  var M={exp:{L:.44,msg:'The reference reattachment length from the published experimental-DNS benchmark.'},
+         ke:{L:.36,msg:'Realizable k-ε Two-Layer reattaches <b>17 to 20% early</b> — the bubble closes short of the measured reference.'},
+         sst:{L:.50,msg:'SST k-ω overshoots by <b>11 to 19%</b> — a longer bubble, on the identical mesh. The two closures bracket the reference from opposite sides.'}};
+  var cur='exp',L=M.exp.L,Lt=L,P=[],NP=0,tmp=[0,0];
+
+  function vel(x,y,o){ var u=0,v=0;
+    if(x<XS){ if(y>YTOP&&y<YSTEP){u=1;v=0;} else {u=.06;v=0;} }
+    else{ var xr=XS+L, bub=(y>YSTEP-.02&&y<YBOT&&x<xr),
+          core=(y>YTOP&&y<YSTEP+.06)?1:.10, sp=Math.min(1,(x-XS)/Math.max(L,.01));
+      u=core; v=core>.5?.055*sp:0;
+      if(y>=YSTEP+.06&&x>=xr){ var t=Math.min(1,(x-xr)/.25);
+        u=.25+.55*t*(1-(y-YSTEP)/(YBOT-YSTEP)*.7); v=-.02; }
+      if(bub){ var cx=XS+L*.52, cy=(YSTEP+YBOT)/2, a=L*.52, b=(YBOT-YSTEP)/2,
+               dx=(x-cx)/a, dy=(y-cy)/b, r2=dx*dx+dy*dy;
+        if(r2<1.05){ var s=(1-Math.min(r2,1))*.62;
+          u=u*(1-s)+(-dy)*.85*s*1.6; v=v*(1-s)+(dx)*.85*s; } }
+      if(y>=YBOT){u*=.05;v=-.02;} }
+    o[0]=u;o[1]=v; }
+
+  function seed(p,any){ if(any&&Math.random()<.45){ p.x=XS+Math.random()*Math.max(L,.05);
+      p.y=YSTEP+Math.random()*(YBOT-YSTEP); }
+    else{ p.x=Math.random()*.06; p.y=YTOP+.015+Math.random()*(YSTEP-YTOP-.03); }
+    p.px=p.x;p.py=p.y;p.life=40+Math.random()*150; }
+  function build(){ NP=C.W<620?280:520; P=new Array(NP);
+    for(var i=0;i<NP;i++){P[i]={};seed(P[i],true);P[i].life=Math.random()*160;} }
+
+  function walls(){ var ctx=C.ctx,W=C.W,H=C.H;
+    ctx.strokeStyle='#2F3E68';ctx.lineWidth=1.4;ctx.beginPath();
+    ctx.moveTo(0,YTOP*H);ctx.lineTo(W,YTOP*H);
+    ctx.moveTo(0,YSTEP*H);ctx.lineTo(XS*W,YSTEP*H);ctx.lineTo(XS*W,YBOT*H);ctx.lineTo(W,YBOT*H);
+    ctx.stroke();
+    ctx.fillStyle='rgba(19,26,46,.85)';ctx.fillRect(0,YSTEP*H,XS*W,(YBOT-YSTEP)*H+2);
+    var xr=(XS+L)*W;
+    ctx.strokeStyle='rgba(242,169,59,.75)';ctx.lineWidth=1.4;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.moveTo(xr,YSTEP*H);ctx.lineTo(xr,YBOT*H);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#F2A93B';ctx.beginPath();ctx.arc(xr,YBOT*H,3.2,0,6.2832);ctx.fill(); }
+
+  function frame(){ if(!C.run){C.raf=null;return;}
+    L+=(Lt-L)*.06;
+    var t=document.getElementById('tagReatt'); if(t) t.style.left=((XS+L)*100)+'%';
+    var ctx=C.ctx,W=C.W,H=C.H;
+    ctx.fillStyle='rgba(8,13,26,0.24)';ctx.fillRect(0,0,W,H); walls();
+    ctx.lineWidth=1.1;ctx.lineCap='round';
+    for(var i=0;i<NP;i++){ var p=P[i]; vel(p.x,p.y,tmp);
+      var s=Math.sqrt(tmp[0]*tmp[0]+tmp[1]*tmp[1]);
+      p.px=p.x;p.py=p.y;p.x+=tmp[0]*.0034;p.y+=tmp[1]*.0034;p.life--;
+      if(p.x>1.01||p.life<0||p.y>.995||p.y<YTOP-.02||isNaN(p.x)){seed(p,true);continue;}
+      ctx.strokeStyle=heat(s,1.05)+Math.min(.9,.18+s*.72)+')';
+      ctx.beginPath();ctx.moveTo(p.px*W,p.py*H);ctx.lineTo(p.x*W,p.y*H);ctx.stroke(); }
+    C.raf=requestAnimationFrame(frame); }
+
+  function still(){ var ctx=C.ctx,W=C.W,H=C.H;
+    ctx.fillStyle='#080D1A';ctx.fillRect(0,0,W,H);walls();
+    for(var k=0;k<2200;k++){ var p={};seed(p,true);
+      for(var s2=0;s2<70;s2++){ vel(p.x,p.y,tmp);
+        var s=Math.sqrt(tmp[0]*tmp[0]+tmp[1]*tmp[1]);
+        var nx=p.x+tmp[0]*.0034, ny=p.y+tmp[1]*.0034;
+        if(nx>1||ny>.995||ny<YTOP-.02||isNaN(nx))break;
+        ctx.strokeStyle=heat(s,1.05)+Math.min(.75,.12+s*.6)+')';ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(p.x*W,p.y*H);ctx.lineTo(nx*W,ny*H);ctx.stroke();
+        p.x=nx;p.y=ny; } } }
+
+  function boot(){ C.resize(); build();
+    var t=document.getElementById('tagReatt'); if(t) t.style.left=((XS+L)*100)+'%';
+    if(reduce){ L=Lt; still(); return; }
+    C.ctx.fillStyle='#080D1A';C.ctx.fillRect(0,0,C.W,C.H);
+    C.run=true; if(!C.raf) C.raf=requestAnimationFrame(frame); }
+
+  window.addEventListener('resize',function(){ C.resize(); build(); if(reduce) still(); });
+  if(!reduce&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      C.run=e.isIntersecting; if(C.run&&!C.raf) C.raf=requestAnimationFrame(frame);});},{threshold:0}).observe(C.cv); }
+
+  document.querySelectorAll('[data-bfs]').forEach(function(b){
+    b.addEventListener('click',function(){ var m=b.getAttribute('data-bfs'); if(m===cur) return;
+      cur=m; Lt=M[m].L;
+      document.querySelectorAll('[data-bfs]').forEach(function(x){
+        x.setAttribute('aria-pressed', x===b?'true':'false'); });
+      var n=document.getElementById('bfsMsg'); if(n) n.innerHTML=M[m].msg;
+      if(reduce){ L=Lt; still(); var t=document.getElementById('tagReatt');
+        if(t) t.style.left=((XS+L)*100)+'%'; } });
+  });
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){safe(boot);});
+  else safe(boot);
+});
+
+/* ================= 2. RUSHTON STIRRED TANK ================= */
+safe(function(){
+  var C=makeCanvas('tank'); if(!C) return;
+  var mode='mrf', ang=0, t=0, NB=6, BAF=4;
+  var trace=[], TRACE_N=150;
+  var P=[],NP=0;
+
+  function geom(){ var W=C.W,H=C.H;
+    var traceH=Math.max(34,H*0.20);
+    var cy=(H-traceH)/2, cx=W/2, R=Math.min(cx,cy)*0.84;
+    return {W:W,H:H,cx:cx,cy:cy,R:R,tH:traceH,tY:H-traceH}; }
+
+  function seed(p,any){ var g=geom();
+    var r=any? (0.12+Math.random()*0.85)*g.R : (0.30+Math.random()*0.06)*g.R;
+    var th=Math.random()*6.2832;
+    p.r=r; p.th=th; p.life=60+Math.random()*180; }
+
+  function build(){ NP=C.W<420?300:380; P=new Array(NP);
+    for(var i=0;i<NP;i++){P[i]={};seed(P[i],true);} }
+
+  /* polar velocity: solid-body core, radial discharge jet, swirl decay, baffle damping */
+  function pvel(r,th,g,out){
+    var ri=g.R*0.333;                    /* D/T = 1/3 */
+    var vr,vt;
+    if(r<ri){ vt=2.4*(r/ri); vr=0.25*(r/ri); }
+    else{
+      var e=(r-ri)/g.R;
+      vt=1.5*Math.exp(-e*1.6);
+      vr=1.9*Math.exp(-Math.pow(e/0.16,2)) - 0.55*Math.pow(r/g.R,2);
+    }
+    /* baffles at 45,135,225,315 — kill swirl, convert to radial */
+    var damp=0;
+    for(var b=0;b<BAF;b++){
+      var bth=Math.PI/4 + b*Math.PI/2;
+      var d=Math.atan2(Math.sin(th-bth),Math.cos(th-bth));
+      damp=Math.max(damp, Math.exp(-Math.pow(d/0.34,2)) * Math.min(1,Math.max(0,(r/g.R-0.55)/0.3)));
+    }
+    vt*= (1-0.88*damp);
+    vr-= 1.5*damp;
+    out[0]=vr; out[1]=vt;
+  }
+
+  function drawTank(){
+    var ctx=C.ctx,g=geom();
+    ctx.fillStyle='rgba(8,13,26,0.26)';ctx.fillRect(0,0,g.W,g.tY);
+    /* tank wall */
+    ctx.strokeStyle='#2F3E68';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(g.cx,g.cy,g.R,0,6.2832);ctx.stroke();
+    /* baffles */
+    ctx.strokeStyle='#3A4B7A';ctx.lineWidth=4;ctx.lineCap='butt';
+    for(var b=0;b<BAF;b++){ var bth=Math.PI/4+b*Math.PI/2;
+      ctx.beginPath();
+      ctx.moveTo(g.cx+Math.cos(bth)*g.R, g.cy+Math.sin(bth)*g.R);
+      ctx.lineTo(g.cx+Math.cos(bth)*g.R*0.80, g.cy+Math.sin(bth)*g.R*0.80);
+      ctx.stroke(); }
+    /* particles */
+    var o=[0,0]; ctx.lineWidth=1.05;ctx.lineCap='round';
+    for(var i=0;i<NP;i++){ var p=P[i];
+      pvel(p.r,p.th,g,o);
+      var x0=g.cx+Math.cos(p.th)*p.r, y0=g.cy+Math.sin(p.th)*p.r;
+      p.r+=o[0]*0.30; p.th+=(o[1]*0.30)/Math.max(p.r,8);
+      p.life--;
+      if(p.r>g.R*0.985||p.r<4||p.life<0||isNaN(p.r)){ seed(p,true); continue; }
+      var x1=g.cx+Math.cos(p.th)*p.r, y1=g.cy+Math.sin(p.th)*p.r;
+      var sp=Math.sqrt(o[0]*o[0]+o[1]*o[1]);
+      ctx.strokeStyle=heat(sp,2.4)+Math.min(.9,.2+sp*.3)+')';
+      ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);ctx.stroke(); }
+    /* impeller: 6-blade Rushton disc */
+    var ri=g.R*0.333;
+    ctx.fillStyle='rgba(20,28,49,.92)';
+    ctx.beginPath();ctx.arc(g.cx,g.cy,ri*0.55,0,6.2832);ctx.fill();
+    ctx.strokeStyle=mode==='slide'?'#F2A93B':'#7C8AB0';
+    ctx.lineWidth=3;ctx.lineCap='round';
+    for(var k=0;k<NB;k++){ var a=ang+k*6.2832/NB;
+      ctx.beginPath();
+      ctx.moveTo(g.cx+Math.cos(a)*ri*0.5, g.cy+Math.sin(a)*ri*0.5);
+      ctx.lineTo(g.cx+Math.cos(a)*ri,     g.cy+Math.sin(a)*ri);
+      ctx.stroke(); }
+    ctx.fillStyle=mode==='slide'?'#F2A93B':'#7C8AB0';
+    ctx.beginPath();ctx.arc(g.cx,g.cy,2.6,0,6.2832);ctx.fill();
+  }
+
+  function drawTrace(){
+    var ctx=C.ctx,g=geom();
+    ctx.fillStyle='#0A1122';ctx.fillRect(0,g.tY,g.W,g.tH);
+    ctx.strokeStyle='rgba(40,52,90,.9)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(0,g.tY+.5);ctx.lineTo(g.W,g.tY+.5);ctx.stroke();
+    var mid=g.tY+g.tH*0.55, amp=g.tH*0.26;
+    /* torque signal */
+    var val = mode==='slide'
+      ? Math.sin(t*0.056)*1 + Math.sin(t*0.112)*0.18
+      : (Math.random()-0.5)*0.05;
+    trace.push(val); if(trace.length>TRACE_N) trace.shift();
+    ctx.strokeStyle=mode==='slide'?'#F2A93B':'#4DA3D9';ctx.lineWidth=1.4;
+    ctx.beginPath();
+    for(var i=0;i<trace.length;i++){
+      var x=(i/(TRACE_N-1))*g.W, y=mid-trace[i]*amp;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y); }
+    ctx.stroke();
+    ctx.font='9.5px ui-monospace,monospace';
+    ctx.fillStyle='#8493B4';
+    ctx.fillText(mode==='slide'?'torque — periodic, 0.050 s (blade-baffle passing)':'torque — steady, rotor frozen', 8, g.tY+12);
+  }
+
+  function frame(){ if(!C.run){C.raf=null;return;}
+    t+=1; if(mode==='slide') ang+=0.009;
+    drawTank(); drawTrace();
+    C.raf=requestAnimationFrame(frame); }
+
+  function still(){ C.ctx.fillStyle='#080D1A';C.ctx.fillRect(0,0,C.W,C.H);
+    for(var i=0;i<260;i++){ drawTankStep(); } drawTank(); drawTrace(); }
+  function drawTankStep(){ var g=geom(),o=[0,0];
+    for(var i=0;i<NP;i++){ var p=P[i]; pvel(p.r,p.th,g,o);
+      p.r+=o[0]*0.30; p.th+=(o[1]*0.30)/Math.max(p.r,8);
+      if(p.r>g.R*0.985||p.r<4||isNaN(p.r)) seed(p,true); } }
+
+  function boot(){ C.resize(); build();
+    if(reduce){ still(); return; }
+    C.ctx.fillStyle='#080D1A';C.ctx.fillRect(0,0,C.W,C.H);
+    C.run=true; if(!C.raf) C.raf=requestAnimationFrame(frame); }
+
+  window.addEventListener('resize',function(){ C.resize(); build(); if(reduce) still(); });
+  if(!reduce&&'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      C.run=e.isIntersecting; if(C.run&&!C.raf) C.raf=requestAnimationFrame(frame);});},{threshold:0}).observe(C.cv); }
+
+  document.querySelectorAll('[data-tank]').forEach(function(b){
+    b.addEventListener('click',function(){ var m=b.getAttribute('data-tank'); if(m===mode) return;
+      mode=m; trace=[];
+      document.querySelectorAll('[data-tank]').forEach(function(x){
+        x.setAttribute('aria-pressed', x===b?'true':'false'); });
+      if(reduce) still(); });
+  });
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){safe(boot);});
+  else safe(boot);
+});
+})();
+</script>
+</body>
+</html>
