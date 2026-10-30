@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sai Kiran Goud Lingala — CFD &amp; Thermal Engineer</title>
-<meta name="description" content="CFD and thermal-fluids engineer. Published validation studies in Simcenter STAR-CCM+, ANSYS Fluent and OpenFOAM — turbulence benchmarking, rotating machinery, conjugate heat transfer.">
+<meta name="description" content="CFD and thermal-fluids engineer. Published validation studies in Simcenter STAR-CCM+, ANSYS Fluent and OpenFOAM — NASA Rotor 37 transonic turbomachinery, turbulence benchmarking, rotating machinery, conjugate heat transfer.">
 <meta name="theme-color" content="#0B1020">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sai Kiran Goud Lingala — CFD &amp; Thermal Engineer">
@@ -190,6 +190,11 @@ a{color:inherit}
 .finding{font-family:var(--mono);font-size:11px;color:var(--muted);border-left:2px solid var(--line);
   padding:2px 0 2px 11px;line-height:1.5}
 .card .sim{border:0;border-bottom:1px solid var(--line);border-radius:0}
+.shot{background:#080D1A;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  border-right:1px solid var(--line)}
+.shot img{display:block;width:100%;height:auto}
+.shot-cap{padding:9px 14px;border-top:1px solid var(--line);background:var(--raise);
+  font-family:var(--mono);font-size:10.2px;color:var(--muted);line-height:1.45}
 .card.wide{grid-column:1/-1;display:grid;grid-template-columns:400px 1fr}
 .card.wide .sim{border-bottom:0;border-right:1px solid var(--line)}
 .card.wide .hold{aspect-ratio:1/1}
@@ -254,7 +259,7 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
 @media (max-width:820px){
   .grid2,.caps{grid-template-columns:1fr}
   .card.wide{grid-template-columns:1fr}
-  .card.wide .sim{border-right:0;border-bottom:1px solid var(--line)}
+  .card.wide .sim,.card.wide .shot{border-right:0;border-bottom:1px solid var(--line)}
   .job{grid-template-columns:1fr;gap:11px}
   .row{grid-template-columns:1fr;gap:8px;padding:14px 16px}
   .wrap{padding:0 18px}
@@ -297,7 +302,7 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
   <p class="eyebrow">CFD &amp; Thermal-Fluid Engineer · Indianapolis, Indiana</p>
   <h1><span><i>Sai Kiran</i></span><span><i>Goud Lingala</i></span></h1>
   <p class="thesis">I build CFD models against published benchmarks and <b>report the disagreement</b> — including the cases I cannot yet explain.</p>
-  <p class="sub">M.S. Mechanical Engineering, University of Dayton. Simcenter STAR-CCM+, ANSYS Fluent, OpenFOAM. Turbulence modelling, conjugate heat transfer, rotating machinery and mesh-convergence work — published openly, failure modes included.</p>
+  <p class="sub">M.S. Mechanical Engineering, University of Dayton. Simcenter STAR-CCM+, ANSYS Fluent, OpenFOAM. Transonic turbomachinery, turbulence modelling, conjugate heat transfer and mesh-convergence work — published openly, failure modes included.</p>
 
   <div class="cta">
     <a class="btn" href="mailto:saikiran27.gl@gmail.com">saikiran27.gl@gmail.com</a>
@@ -307,10 +312,10 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
   </div>
 
   <div class="metrics">
-    <div class="metric"><strong data-num="0.8" data-suffix="%">0.8%</strong><span>max deviation after GCI / Richardson grid study</span></div>
+    <div class="metric"><strong data-num="1.1" data-prefix="−" data-suffix="%">−1.1%</strong><span>NASA Rotor 37 pressure ratio vs. published measurement</span></div>
+    <div class="metric"><strong data-num="4" data-suffix="x">4x</strong><span>turbulence-model vs. mesh uncertainty, Rotor 37</span></div>
     <div class="metric"><strong data-num="11" data-prefix="+" data-suffix="%">+11%</strong><span>lift-to-drag gain from a validated geometry change</span></div>
     <div class="metric"><strong data-num="35" data-suffix="%">35%</strong><span>faster new-case turnaround via Fluent automation</span></div>
-    <div class="metric"><strong data-num="0.74" data-suffix="%">0.74%</strong><span>MRF vs. sliding-mesh agreement, corrected Rushton tank</span></div>
   </div>
 
   <div class="sim" id="bfsSim" style="margin-top:18px">
@@ -335,6 +340,18 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
   <div class="ledger" id="ledger">
     <div class="ledger-head"><h2>Validation Ledger</h2><p>computed vs. published / analytical reference</p></div>
     <div>
+      <div class="row"><div class="case">NASA Rotor 37<small>k-ω SST · peak efficiency</small></div>
+        <div class="measure">Total pressure ratio<br><b>2.0616</b> vs 2.084 NASA</div>
+        <div class="bar"><div class="axis"></div><div class="fill neg" style="right:82%;width:0.6%;background:var(--good)"></div>
+          <div class="val neg" style="right:calc(82% + 0.6% + 8px);color:var(--good)">−1.1%</div></div></div>
+      <div class="row"><div class="case">NASA Rotor 37<small>k-ω SST · peak efficiency</small></div>
+        <div class="measure">Adiabatic efficiency<br><b>0.857</b> vs 0.879 NASA</div>
+        <div class="bar"><div class="axis"></div><div class="fill neg" style="right:82%;width:1.2%;background:var(--good)"></div>
+          <div class="val neg" style="right:calc(82% + 1.2% + 8px);color:var(--good)">−2.2 pt</div></div></div>
+      <div class="row"><div class="case">NASA Rotor 37<small>Spalart-Allmaras vs SST</small></div>
+        <div class="measure">Model-form spread, identical mesh<br><b>4x</b> the mesh uncertainty</div>
+        <div class="bar"><div class="axis"></div><div class="fill pos" style="left:18%;width:2.1%"></div>
+          <div class="val pos" style="left:calc(18% + 2.1% + 8px)">+3.9%</div></div></div>
       <div class="row"><div class="case">Backward-facing step<small>Realizable k-ε Two-Layer</small></div>
         <div class="measure">Reattachment length<br><b>Re<sub>h</sub> = 5100</b> · Jovic &amp; Driver</div>
         <div class="bar"><div class="axis"></div><div class="fill neg" style="right:82%;width:12.3%"></div>
@@ -356,7 +373,7 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
         <div class="bar"><div class="axis"></div><div class="fill tight" style="left:18%;width:1.1%"></div>
           <div class="val tight" style="left:calc(18% + 1.1% + 8px)">+2.1%</div></div></div>
     </div>
-    <div class="ledger-foot"><b>Why I show the misses.</b> Every row here agrees with its reference now, but two of them did not start that way. The Rushton case initially over-predicted by 2.1x. Two plausible causes — rotor-stator unsteadiness, turbulence-model bias — were tested and refuted before a dimensional audit found the real one: a 25% oversized impeller sweep. I predicted the corrected torque analytically, then confirmed it experimentally.</div>
+    <div class="ledger-foot"><b>Why I show the misses.</b> Every row here agrees with its reference now, but two of them did not start that way. The Rushton case initially over-predicted by 2.1x. Two plausible causes — rotor-stator unsteadiness, turbulence-model bias — were tested and refuted before a dimensional audit found the real one: a 25% oversized impeller sweep. I predicted the corrected torque analytically, then confirmed it experimentally. On Rotor 37 the useful result is not the agreement but the breakdown: turbulence closure contributes about four times the uncertainty that mesh refinement does, and both numbers are in the repository.</div>
   </div>
 </header>
 
@@ -367,7 +384,26 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
     <h2>Selected work</h2>
     <p>Self-directed validation studies and graduate analysis projects. Each public repository carries the methodology, the data, and the reasoning that corrected my wrong theories along the way.</p>
   </div>
-  <div class="stag">
+  <div class="stag" style="display:grid;gap:16px">
+
+    <article class="card tilt wide">
+      <div class="shot">
+        <img src="rotor37_sweep.gif" alt="Relative Mach number on a plane sweeping through the NASA Rotor 37 passage, peak efficiency compared with near stall" loading="lazy">
+      </div>
+      <div class="card-b">
+        <span class="tool">Simcenter STAR-CCM+ · Siemens NX</span>
+        <h3>NASA Rotor 37 — transonic compressor rotor validation</h3>
+        <p>Steady RANS on the isolated transonic axial compressor rotor from the AGARD/ASME blind test, built from published blade coordinates and validated against NASA measurements.</p>
+        <ul>
+          <li>Total pressure ratio within 1.1% (2.0616 vs 2.084); adiabatic efficiency within 2.2 pt (0.857 vs 0.879)</li>
+          <li>Four-mesh grid study, 0.83 M → 5.97 M cells; conservative GCI ±0.9% on PR, ±0.3 pt on efficiency</li>
+          <li>Spalart-Allmaras vs SST on the identical 3.71 M-cell mesh moves PR by 3.9% — four times the mesh uncertainty, and the closures bracket NASA&rsquo;s value</li>
+          <li>3.71 M-cell polyhedral mesh, 30 prism layers, first cell ≈ 1 µm (y⁺ ≈ 1), ≈ 36 cells across the 0.357 mm tip gap</li>
+        </ul>
+        <p class="finding">The mesh is not the uncertainty here — the turbulence model is, and I can put a number on both. I also report what neither model reproduces: a 7–11 pt efficiency deficit at 97% span, and a hub total-pressure excess from a leakage path I did not model.</p>
+        <a class="repo" href="https://github.com/SaiKiran4099/nasa-rotor37-cfd" target="_blank" rel="noopener">github.com/SaiKiran4099/nasa-rotor37-cfd →</a>
+      </div>
+    </article>
 
     <article class="card tilt wide">
       <div class="sim">
@@ -477,9 +513,9 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
   <div class="sec-head"><h2>Capabilities</h2></div>
   <dl class="caps" style="margin:0">
     <div class="capbox"><dt>Solvers</dt><dd>Simcenter STAR-CCM+ · ANSYS Fluent · OpenFOAM · ParaView · ANSYS Meshing · SpaceClaim</dd></div>
-    <div class="capbox"><dt>Methods</dt><dd>RANS (k-ω SST, Realizable k-ε) · MRF and sliding-mesh rotating machinery · conjugate heat transfer · compressible and incompressible flow · GCI/Richardson extrapolation · y⁺ mesh control · uncertainty quantification</dd></div>
-    <div class="capbox"><dt>Programming</dt><dd>Python (NumPy, Pandas, PyTorch, Matplotlib) · MATLAB · Fluent journal automation · simulation workflow scripting</dd></div>
-    <div class="capbox"><dt>Design</dt><dd>SolidWorks · CATIA V5/V6 · geometry cleanup and defeaturing for CFD import · technical reporting</dd></div>
+    <div class="capbox"><dt>Methods</dt><dd>RANS (k-ω SST, Realizable k-ε, Spalart-Allmaras) · MRF and sliding-mesh rotating machinery · transonic and shock–boundary-layer flow · conjugate heat transfer · compressible and incompressible flow · GCI/Richardson extrapolation · y⁺ mesh control · uncertainty quantification</dd></div>
+    <div class="capbox"><dt>Programming</dt><dd>Python (NumPy, SciPy, Pandas, PyTorch, Matplotlib) · MATLAB · Fluent journal automation · simulation workflow scripting</dd></div>
+    <div class="capbox"><dt>Design</dt><dd>Siemens NX · SolidWorks · CATIA V5/V6 · geometry cleanup and defeaturing for CFD import · technical reporting</dd></div>
   </dl>
 </section>
 
@@ -493,11 +529,11 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:22px 0 40px}
       <p>MLR Institute of Technology, Hyderabad. Focus: fluid mechanics, thermodynamics, aerodynamics.</p>
       <div class="when">Aug 2018 – Jul 2022</div></div>
     <div class="cred"><span class="tool">Patent</span><h3>Morphing wing mechanism</h3>
-      <p>Co-inventor on a filed Indian patent application — rack-and-pinion mechanism varying thickness-to-chord ratio in flight. Validated in ANSYS Workbench.</p>
+      <p>Co-inventor on a filed Indian patent application — rack-and-pinion mechanism varying thickness-to-chord ratio in flight. Mechanism and mating components designed in SolidWorks, with interfaces, clearances and travel limits defined.</p>
       <div class="when">Filed application — not granted</div></div>
-    <div class="cred"><span class="tool">Licensure</span><h3>FE Mechanical</h3>
-      <p>Sitting the Fundamentals of Engineering exam in Ohio, first step toward PE licensure.</p>
-      <div class="when">Scheduled September 2026 · EIT candidate</div></div>
+    <div class="cred"><span class="tool">Open source</span><h3>Published validation studies</h3>
+      <p>Public repositories carrying mesh, data, scripts and reasoning — including the runs that failed first.</p>
+      <div class="when">github.com/SaiKiran4099</div></div>
   </div>
 
   <div class="auth">
